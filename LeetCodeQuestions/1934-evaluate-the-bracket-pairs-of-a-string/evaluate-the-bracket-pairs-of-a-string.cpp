@@ -4,23 +4,23 @@ public:
         string ans = "";
         int n = s.size();
 
-        map<string, string> mp;
+        unordered_map<string, string> mp;
         for (auto &a: knowledge) {
             mp[a[0]] = a[1];
         }
 
+        string key = "";
+
         for (int i = 0; i < n; i++) {
             if (s[i] == '(') {
-                string key = "";
                 int j = i + 1;
+                key.clear();
+
                 for (; j < n && s[j] != ')'; j++) {
                     key += s[j];
                 }
-                if (mp.find(key) != mp.end()) {
-                    ans += mp[key];
-                } else {
-                    ans += "?";
-                }
+                
+                ans += mp.find(key) == mp.end() ? "?" : mp[key];
                 i = j;
             } else {
                 ans += s[i];
